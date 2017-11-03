@@ -31,4 +31,8 @@ public class IndividualCustomer extends Customer {
 		this.firstName = firstName;
 	}
 
+    public void setCreated(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

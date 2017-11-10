@@ -11,7 +11,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.*;
 
 /**
@@ -46,15 +49,7 @@ public class IndividualCustomerTest {
     /**
      * Test of setFirstName method, of class IndividualCustomer.
      */
-    @Test
-    public void testSetFirstName() {
-        IndividualCustomer ic1 = new IndividualCustomer();
-        ic1.setFirstName("Mayer");
-        String result = ic1.getFirstName();
-        assertTrue(result != null);
-        assertTrue(result.equals("Mayer"));
 
-    }
 
     //---------------------------------------------
     @Test
@@ -71,28 +66,33 @@ public class IndividualCustomerTest {
         assertTrue(ic1.getId().isEmpty());
     }
 
-    @Test
-    public void testSetId() {
-        IndividualCustomer ic1 = new IndividualCustomer();
-        ic1.setId("1234");
-
-        assertTrue(ic1.getId() != null);
-        assertTrue(ic1.getId().equals("1234"));
-
-    }
 
     //-----------------------------------------------------
-    @Test
-    public void setGetCreated() throws Exception {
-        IndividualCustomer ic1 = new IndividualCustomer();
+//    @Test
+//    public void setGetCreated() throws Exception {
+//        IndividualCustomer ic1 = new IndividualCustomer();
+//        DateFormat format = new SimpleDateFormat("dd.mm.yyyy", Locale.GERMAN);
+//        Date date = format.parse("03.11.2017");
+//        
+//        ic1.setCreated(date);
+//        assertEquals(ic1.getCreated().equals(date));
+//
+//     //   ic1.setCreated(null);
+//       // assertNull(ic1.getCreated());
+//    }
+    
+   @Test
+    public void testGetCreated() throws Exception {
+  IndividualCustomer ic1 = new IndividualCustomer();
         DateFormat format = new SimpleDateFormat("dd.mm.yyyy", Locale.GERMAN);
         Date date = format.parse("03.11.2017");
-        
-        ic1.setCreated(date);
-        assertEquals(ic1.getCreated().equals(date));
 
-     //   ic1.setCreated(null);
-       // assertNull(ic1.getCreated());
+        ic1.setCreated(date);
+        System.out.println(ic1.getCreated());
+        assertThat(ic1.getCreated()==date, is (true));
+
+       ic1.setCreated((Date)null);
+        assertNull(ic1.getCreated());
     }
 
     //---------------------------------------------
@@ -116,15 +116,7 @@ public class IndividualCustomerTest {
     /**
      * Test of setFirstName method, of class IndividualCustomer.
      */
-    @Test
-    public void testSetName() {
-        IndividualCustomer ic1 = new IndividualCustomer();
-        ic1.setName("Mayer");
-        String result = ic1.getName();
-        assertTrue(result != null);
-        assertTrue(result.equals("Mayer"));
-
-    }
+   
 
     private void assertEquals(boolean equals) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

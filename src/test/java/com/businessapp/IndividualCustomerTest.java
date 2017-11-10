@@ -53,6 +53,7 @@ public class IndividualCustomerTest {
 
     //---------------------------------------------
     @Test
+    
     public void testGetId() {
         IndividualCustomer ic1 = new IndividualCustomer();
 

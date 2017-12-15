@@ -89,14 +89,16 @@ class CalculatorLogic implements CalculatorLogicIntf {
                     break;
                 case K_EQ:
                     verarbeiten();
+                    break;
 
                 case K_VAT:
                     String wert = dsb.toString();
-                    double mwst = Double.valueOf(wert) * 0.19;
+                    double netto = Double.valueOf(wert) / 1.19;
+                    String nettoBetrag = String.format("%.2f", netto);
                     CalculatorLogicIntf.SIDEAREA.set(
                             "Brutto:  " + dsb + "\n"
-                            + VAT_RATE + "% MwSt: " + mwst + " \n"
-                            + "Netto:  " + (Double.valueOf(wert) - mwst)
+                            + VAT_RATE + "% MwSt: " + String.format("%.2f", (Double.valueOf(wert) - netto)) + " \n"
+                            + "Netto:  " + nettoBetrag
                     );
                     break;
 
@@ -130,26 +132,32 @@ class CalculatorLogic implements CalculatorLogicIntf {
      */
     private void appendBuffer(String d) {
         if (dsb.length() <= DISPLAY_MAXDIGITS) {
-            dsb.append(d);
-        }
+        
+                dsb.append(d);
+//                if(dsb.length()>=2){
+//                if(dsb.substring(dsb.length()-1).equals(dsb.substring(dsb.length()-2)))
+//                    dsb.replace(dsb.length()-2,dsb.length()-1, d);
+//          
+           }    
     }
 
     void calcAddSub(int zeiger) {
         //---rekursive logik
-               if (operator.size() <= zeiger) {
+        if (operator.size() <= zeiger) {
             //    calcAddSub(0);
-            ergebnis = operand.get(0).toString();
+            ergebnis = String.format("%.2f", operand.get(0));
             dsb.delete(0, dsb.length());
             appendBuffer(ergebnis);
-            System.out.println(dsb);
+            System.out.println("OP " + operand.get(0));
+            System.out.println("erg " + ergebnis);
+            System.out.println("dsb " + dsb);
             return;
         }
 
-       if (operator.get(zeiger) != null) {
-             sign = operator.get(zeiger);
-             op1 = operand.get(zeiger);
-             op2 = operand.get(zeiger + 1);
-
+        if (operator.get(zeiger) != null) {
+            sign = operator.get(zeiger);
+            op1 = operand.get(zeiger);
+            op2 = operand.get(zeiger + 1);
 
             if (sign == '+' || sign == '-') {
                 if (sign == '+') {
@@ -157,14 +165,13 @@ class CalculatorLogic implements CalculatorLogicIntf {
                     operand.set(zeiger, op1);
                     operand.remove(zeiger + 1);
                     operator.remove(zeiger);
-                    
-                   //----> Manuell alle zellen überschreiben...
 
+                    //----> Manuell alle zellen überschreiben...
                     System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
                     calcAddSub(zeiger);
                 }
 
-     if (sign == '-') {
+                if (sign == '-') {
                     op1 = op1 - op2;
                     operand.set(zeiger, op1);
                     operand.remove(zeiger + 1);
@@ -172,7 +179,8 @@ class CalculatorLogic implements CalculatorLogicIntf {
 
                     System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
                     calcAddSub(zeiger);
-                }          }
+                }
+            }
         }
     }
 
@@ -181,18 +189,18 @@ class CalculatorLogic implements CalculatorLogicIntf {
         //--------------TODO--------->>> Auf Länge des Arrays prüfen. (if(Array.zice()==0){...}) und ARRAY am ENDE der Berechnung LEEREN!
 
         if (operator.size() <= zeiger) {
-             calcAddSub(0);
+            calcAddSub(0);
 ////            ergebnis = operand.get(0).toString();
-    //        dsb.delete(0, dsb.length());
-     //       appendBuffer(ergebnis);
-   //         System.out.println(dsb);
+            //        dsb.delete(0, dsb.length());
+            //       appendBuffer(ergebnis);
+            //         System.out.println(dsb);
             return;
         }
 
         if (operator.get(zeiger) != null) {
-             sign = operator.get(zeiger);
-             op1 = operand.get(zeiger);
-             op2 = operand.get(zeiger + 1);
+            sign = operator.get(zeiger);
+            op1 = operand.get(zeiger);
+            op2 = operand.get(zeiger + 1);
 
             if (sign == '+' || sign == '-') {
                 calcMultDiv(zeiger + 1);
@@ -203,14 +211,13 @@ class CalculatorLogic implements CalculatorLogicIntf {
                     operand.set(zeiger, op1);
                     operand.remove(zeiger + 1);
                     operator.remove(zeiger);
-                    
-                   //----> Manuell alle zellen überschreiben...
 
+                    //----> Manuell alle zellen überschreiben...
                     System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
                     calcMultDiv(zeiger);
                 }
 
-     if (sign == '/') {
+                if (sign == '/') {
                     op1 = op1 / op2;
                     operand.set(zeiger, op1);
                     operand.remove(zeiger + 1);
@@ -218,7 +225,8 @@ class CalculatorLogic implements CalculatorLogicIntf {
 
                     System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
                     calcMultDiv(zeiger);
-                }          }
+                }
+            }
         }
     }
 
@@ -226,26 +234,33 @@ class CalculatorLogic implements CalculatorLogicIntf {
 
         operator.clear();
         operand.clear();
-        
+
         String wert = dsb.toString();
-        String[] wertSp = wert.split("\\D");
+
+        String[] wertSp = wert.split("[^\\d\\.]");
         char[] tmp = wert.toCharArray();
-        
 
         //-------------Listen Füllen
+          boolean doppel = false;
         for (char c : tmp) {
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 operator.add(c);
-            }
+                doppel = true;
+                continue;
+         }
+//                        if ((c == '+' || c == '-' || c == '*' || c == '/') && doppel==true) {
+//                doppel = false;
+//                continue;
+//           
+//            }
+            
         }
-
         for (String werte : wertSp) {
             double tf = Double.valueOf(werte);
             operand.add(tf);
         }
 
         //-------------bererchnung
-
         int index = 0;
         for (char f : operator) {
             System.out.println("ZArray [ " + index + " ] : " + f);
@@ -257,4 +272,5 @@ class CalculatorLogic implements CalculatorLogicIntf {
             index++;
         }
         calcMultDiv(0);
-    }}
+    }
+}

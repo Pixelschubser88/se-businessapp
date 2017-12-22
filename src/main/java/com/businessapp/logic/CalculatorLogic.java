@@ -27,7 +27,7 @@ class CalculatorLogic implements CalculatorLogicIntf {
 
     ArrayList<Character> operator = new ArrayList<>();
     ArrayList<Double> operand = new ArrayList<>();
-    int pointer = 0;
+
     Character sign;
     double op1;
     double op2;

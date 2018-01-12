@@ -1,0 +1,40 @@
+Musikgeschäft und Verleih
+
+1.
+Schlagzeug, Verstärker, Effektgeräte, Kabel, Konzertbeleuchtung
+
+2.
+Akteur: Kunde
+Akteur: Geschäftsangestellte
+Akteur: Geschäftsführer
+Stakeholder: Manager
+
+
+3.
+Das Problem ist, dass zu spät erkannt wird wann Equipment zu spät oder gar nicht zurück gebracht wurde.
+Es gibt zu wenig Kontrolle über verliehene Dinge und Verfügbarkeit von Equipment. Nachbestellung von Ware dauert
+mit 60 Minuten zu lange.
+
+4.
+Das Ziel ist eine genaue Übersicht für alle verliehenen Gegenstände und Verfügbarkeit der zu verkaufenden Ware.
+Verliehene Gegenstände sollen in einer Datenbank festgehalten werden und als "nicht verfügbar" markiert sein. Außerdem
+müssen die Kundendaten dort hinterlegt sein um schnell Kontakt aufnehmen zu können. Wenn der Kunde seine Frist nicht einhält wird
+dem Unternehmen, durch das System gemeldet welche Einheit und welcher Kunde "überfällig" ist.
+Wenn Waren im Lager leer oder nur noch geringfügig vorhanden sind muss das im System gemeldet werden und auf schnellem Weg
+nachbestellt werden können. Eine Nachbestellung von Waren darf nicht länger als 10 Minuten dauern.
+Das System soll Kaufadaten von Kunden auswerten und passende Angebote initiativ für sie zusammenstellen. Wenn kunden es Wünschen sollen sie mit Newslettern auf dem Laufenden gehaltenwerden.
+
+5.
+5.1 - Als Kunde möchte ich möglichst schnell mein Equipment buchen.
+5.2 - Als Kunde will ich, dass meine Bestellung schnell bearbeitet wird.
+5.3 - Als Kunde will ich immer ein Feedback über den Stand meiner Bestellung erhalten
+5.4 - Als Kunde möchte ich meine Daten (Fristen,Käufe,...) schnell erfassen können.
+5.4 - Als Angestellterhabe möchte ich vom System über unsere Leihgaben auf dem Laufenden gehalten werden.
+5.5 - Als Geschäftsführer will ich Kosten und Gewinn über einen beliebigen Zeitraum schnell erfassen.
+5.6 - Als Angestellter möchte ich schnell und leicht Kontakt mit dem Kunden aufnehmen können.
+5.7 - Als Geschäftsführer interessiere ich mich für das Kauf- und Leihverhalten von kunden. Das System soll passende Angebote für Kunden zusammenstellen.
+5.8 - Als Kunde habe ich interesse daran, Angebote für zu behör zu erhalten.
+5.9 - Als Kunde habe ich möchte ich über Neuigkeiten auf dem Laufenden gehalten werden.
+5.10 - Als Geschäftsführer habe ich Interesse daran den Kunden über Neuigkeiten und Preise zu informieren um die Geschäftsbeziehung zu festigen.
+5.11 - Als Angestellter brauche ich einen Datenpool, der mir die Möglichkeit gibt, woher ich fehlende Ware beziehen kann und sie dem Kunden bereitstellen kann.
+5.12 - Als Manager habe ich das Bedürfnis, dass Meine Bands gut versorgt sind und schnell fehlendes Material beziehen können.

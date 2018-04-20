@@ -17,7 +17,7 @@
               <AnchorPane style="-fx-background-color: #333333;">
                      <children>
                         <Button layoutX="573.0" layoutY="269.0" mnemonicParsing="false" onMouseReleased="#exitButton" prefHeight="25.0" prefWidth="76.0" text="Exit" />
-                        <Text fill="WHITE" layoutX="63.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sound like Music" wrappingWidth="298.13671875">
+                        <Text fill="WHITE" layoutX="63.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sounds like Music" wrappingWidth="298.13671875">
                            <font>
                               <Font name="Have Heart One" size="91.0" />
                            </font>

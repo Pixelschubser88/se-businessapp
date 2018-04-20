@@ -1,0 +1,3 @@
+Kunde
+Produkt
+Angestellter

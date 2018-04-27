@@ -50,10 +50,18 @@ class CustomerDataMockImpl implements CustomerDataIntf {
 			Customer eric = DS.newCustomer( "Eric Winter" ).addContact( "eric@gmail.com" );
 			Customer anja = DS.newCustomer( "Anja Schuhmann");
 			DS.newCustomer( "Moritz Baumann" ).addContact( "moritz@gmx.de" );
-			DS.newCustomer( "Claudia Lindner" ).addContact( "beanie64@gmail.com" );
+			DS.newCustomer( "Claudia Lindner" ).addContact( "claudia@gmail.com" );
 			eric.addContact( "e532@yahoo.com" );
 			anja.addContact( "anja.schuhmann@benz.de" );
-		} else {
+			Customer alfons = DS.newCustomer("Alfons Kipp").addContact("alfons284@gmail.de");
+			//alfons.getNotesAsStringList().add(alfons.getNotes().size()+1,"Kunde kam auf Empfehlung von Frau Meyer");
+		}
+		if(name.equals("Studenten")){
+			DS.newCustomer("Thim").addContact("xyz@beuth.de");
+			DS.newCustomer("Dumpfbacke I").addContact("xyz@beuth.de");
+			DS.newCustomer("Dumpfbacke II").addContact("xyz@beuth.de");
+		}
+		else {
 			// Customer list 2
 			DS.newCustomer( "Matteo Schwarz" ).addContact( "Grossweg 4/0, 79805 Aschaffenburg" );
 			DS.newCustomer( "Paul Neumann" ).addContact( "Engelbert-Noack-Gasse 3, 16665 Parsberg" );
@@ -74,6 +82,8 @@ class CustomerDataMockImpl implements CustomerDataIntf {
 			DS.newCustomer( "Ella Wagner" ).addContact( "Heinz-Dieter-Krebs-Weg 32, 82151 Grevenbroich" );
 			DS.newCustomer( "Niklas Frank" ).addContact( "Heinzeplatz 4, 40605 Bernburg" );
 		}
+
+
 	}
 
 	@Override

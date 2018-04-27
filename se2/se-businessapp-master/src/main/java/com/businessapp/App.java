@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  * Main class launched by JavaFX runtime.
- * 
+ *
  * The UI uses a TabPanel to frame a variable number of components as Tab's.
  * Each component has a name, a UI/FXML Controller handling the user interface
  * interactions and a separate controller that implements logic independently
@@ -30,15 +30,16 @@ public class App extends Application {
 	 * List of App components in order of appearance on the main GUI/TabPanel.
 	 */
 	private ComponentBuilder compBuilder = new ComponentBuilder(
-		Arrays.asList( new Component[] {
-			//				Name,			FXML UI-Controller,		Logic-Controller
-			new Component(	"Main",			"App.fxml",				null ),
-			new Component(	"Calculator",	"Calculator.fxml",		CalculatorLogicIntf.getController() ),
-			//new Component( "Calc_2",		"Calculator.fxml",		CalculatorLogicIntf.getController() ),
-			new Component(	"Kunden",		"Customer.fxml",		CustomerDataIntf.getController() ),
-			new Component(	"Kundenliste_2","Customer.fxml",		CustomerDataIntf.getController() ),
-			//new Component( "Katalog",		"Catalog.fxml",			CatalogDataIntf.getController() ),
-	}));
+			Arrays.asList( new Component[] {
+					//				Name,			FXML UI-Controller,		Logic-Controller
+					new Component(	"Main",			"App.fxml",				null ),
+					new Component(	"Calculator",	"Calculator.fxml",		CalculatorLogicIntf.getController() ),
+					//new Component( "Calc_2",		"Calculator.fxml",		CalculatorLogicIntf.getController() ),
+					new Component(	"Kunden",		"Customer.fxml",		CustomerDataIntf.getController() ),
+					new Component(	"Kundenliste_2","Customer.fxml",		CustomerDataIntf.getController() ),
+					//new Component( "Katalog",		"Catalog.fxml",			CatalogDataIntf.getController() ),
+					new Component(	"Stundenten","Customer.fxml",		CustomerDataIntf.getController() ),
+			}));
 
 	public static App getInstance() {
 		return _app;

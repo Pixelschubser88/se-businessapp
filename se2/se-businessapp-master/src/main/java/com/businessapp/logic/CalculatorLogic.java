@@ -5,6 +5,8 @@ import com.businessapp.ControllerIntf;
 import com.businessapp.fxgui.CalculatorGUI_Intf;
 import com.businessapp.fxgui.CalculatorGUI_Intf.Token;
 
+import java.util.ArrayList;
+
 
 /**
  * Implementation of CalculatorLogicIntf that only displays Tokens
@@ -15,6 +17,16 @@ class CalculatorLogic implements CalculatorLogicIntf {
 	private CalculatorGUI_Intf view;
 	private StringBuffer dsb = new StringBuffer();
 	private final double VAT_RATE = 19.0;
+
+	ArrayList<Character> operator = new ArrayList<>();
+	ArrayList<Double> operand = new ArrayList<>();
+
+	Character sign;
+	double op1;
+	double op2;
+	double erg;
+	String ergebnis;
+	String wert;
 
 	CalculatorLogic() {
 	}
@@ -70,13 +82,18 @@ class CalculatorLogic implements CalculatorLogicIntf {
 			case K_MUL:	appendBuffer( "*" ); break;
 			case K_PLUS:appendBuffer( "+" ); break;
 			case K_MIN:	appendBuffer( "-" ); break;
-			case K_EQ:	appendBuffer( "=" ); break;
+			case K_EQ:	 verarbeiten();
+				break;
 
 			case K_VAT:
 				view.writeSideArea(
-					"Brutto:  1,000.00\n" +
-					VAT_RATE + "% MwSt:  159.66\n" +
-					"Netto:  840.34"
+						wert = dsb.toString());
+				double netto = Double.valueOf(wert) / 1.19;
+				String nettoBetrag = String.format("%.2f", netto);
+				view.writeSideArea(
+						"Brutto:  " + dsb + "\n"
+								+ VAT_RATE + "% MwSt: " + String.format("%.2f", (Double.valueOf(wert) - netto)) + " \n"
+								+ "Netto:  " + nettoBetrag
 				);
 				break;
 
@@ -110,6 +127,139 @@ class CalculatorLogic implements CalculatorLogicIntf {
 		if( dsb.length() <= CalculatorGUI_Intf.DISPLAY_MAXDIGITS ) {
 			dsb.append( d );
 		}
+	}
+
+	void calcAddSub(int zeiger) {
+		//---rekursive logik
+		if (operator.size() <= zeiger) {
+			//    calcAddSub(0);
+			ergebnis = String.format("%.2f", operand.get(0));
+			dsb.delete(0, dsb.length());
+			appendBuffer(ergebnis);
+			System.out.println("OP " + operand.get(0));
+			System.out.println("erg " + ergebnis);
+			System.out.println("dsb " + dsb);
+			return;
+		}
+
+		if (operator.get(zeiger) != null) {
+			sign = operator.get(zeiger);
+			op1 = operand.get(zeiger);
+			op2 = operand.get(zeiger + 1);
+
+			if (sign == '+' || sign == '-') {
+				if (sign == '+') {
+					op1 = op1 + op2;
+					operand.set(zeiger, op1);
+					operand.remove(zeiger + 1);
+					operator.remove(zeiger);
+
+					//----> Manuell alle zellen überschreiben...
+					System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
+					calcAddSub(zeiger);
+				}
+
+				if (sign == '-') {
+					op1 = op1 - op2;
+					operand.set(zeiger, op1);
+					operand.remove(zeiger + 1);
+					operator.remove(zeiger);
+
+					System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
+					calcAddSub(zeiger);
+				}
+			}
+		}
+	}
+
+	void calcMultDiv(int zeiger) {
+		//---rekursive logik
+		//--------------TODO--------->>> Auf Länge des Arrays prüfen. (if(Array.zice()==0){...}) und ARRAY am ENDE der Berechnung LEEREN!
+
+		if (operator.size() <= zeiger) {
+			calcAddSub(0);
+////            ergebnis = operand.get(0).toString();
+			//        dsb.delete(0, dsb.length());
+			//       appendBuffer(ergebnis);
+			//         System.out.println(dsb);
+			return;
+		}
+
+		if (operator.get(zeiger) != null) {
+			sign = operator.get(zeiger);
+			op1 = operand.get(zeiger);
+			op2 = operand.get(zeiger + 1);
+
+			if (sign == '+' || sign == '-') {
+				calcMultDiv(zeiger + 1);
+			}
+			if (sign == '*' || sign == '/') {
+				if (sign == '*') {
+					op1 = op1 * op2;
+					operand.set(zeiger, op1);
+					operand.remove(zeiger + 1);
+					operator.remove(zeiger);
+
+					//----> Manuell alle zellen überschreiben...
+					System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
+					calcMultDiv(zeiger);
+				}
+
+				if (sign == '/') {
+					op1 = op1 / op2;
+					operand.set(zeiger, op1);
+					operand.remove(zeiger + 1);
+					operator.remove(zeiger);
+
+					System.out.println("Zeiger:" + zeiger + " Operator: " + operator.toString() + "Sign: " + sign);
+					calcMultDiv(zeiger);
+				}
+			}
+		}
+	}
+
+	private void verarbeiten() {
+
+		operator.clear();
+		operand.clear();
+
+		String wert = dsb.toString();
+
+		String[] wertSp = wert.split("[^\\d\\.]");
+		char[] tmp = wert.toCharArray();
+
+		//-------------Listen Füllen
+		boolean doppel = false;
+		for (char c : tmp) {
+			if (c == '+' || c == '-' || c == '*' || c == '/') {
+				operator.add(c);
+				doppel = true;
+				continue;
+			}
+//                        if ((c == '+' || c == '-' || c == '*' || c == '/') && doppel==true) {
+//                doppel = false;
+//                continue;
+//
+//            }
+
+		}
+		for (String werte : wertSp) {
+			double tf = Double.valueOf(werte);
+			operand.add(tf);
+		}
+
+		//-------------bererchnung
+		int index = 0;
+		for (char f : operator) {
+			System.out.println("ZArray [ " + index + " ] : " + f);
+			index++;
+		}
+		index = 0;
+		for (double f : operand) {
+			System.out.println("WArray [ " + index + " ] : " + f);
+			index++;
+		}
+		calcMultDiv(0);
 	}
 
 }

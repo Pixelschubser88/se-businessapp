@@ -7,17 +7,17 @@ import com.businessapp.logic.IDGen;
 
 
 /**
- * Customer is an entity that represents a person (or a business)
+ * Product is an entity that represents a person (or a business)
  * to which a business activity can be associated.
  *
  */
-public class Customer implements EntityIntf  {
+public class Product implements EntityIntf  {
 	private static final long serialVersionUID = 1L;
 
 	private static IDGen IDG = new IDGen( "C.", IDGen.IDTYPE.AIRLINE, 6 );
 
-	// Customer states.
-	public enum CustomerStatus { ACTIVE, SUSPENDED, TERMINATED };
+	// Product states.
+	public enum ProductStatus { ACTIVE, SUSPENDED, TERMINATED };
 
 
 	/*
@@ -25,33 +25,33 @@ public class Customer implements EntityIntf  {
 	 */
 	private String id = null;
 
-	private String firstname = null;
+	private String publisher = null;
 
-	private String name = null;
+	private String type = null;
 
-	private List<String> contacts = new ArrayList<String>();
+	//private List<String> contacts = new ArrayList<String>();
 
 	private List<LogEntry> notes = new ArrayList<LogEntry>();
 
-	private CustomerStatus status = CustomerStatus.ACTIVE;
+	private ProductStatus status = ProductStatus.ACTIVE;
 
 
 	/**
 	 * Private default constructor (required by JSON deserialization).
 	 */
 	@SuppressWarnings("unused")
-	private Customer() { }
+	private Product() { }
 
 	/**
 	 * Public constructor.
-	 * @param id if customer id is null, an id is generated for the new customer object.
-	 * @param name customer.
+	 * @param id if Product id is null, an id is generated for the new Product object.
+	 * @param type Product.
 	 */
-	public Customer( String id, String firstname, String name ) {
+	public Product( String id, String publisher, String type ) {
 		this.id = id==null? IDG.nextId() : id;
-		this.firstname=firstname;
-		this.name = name;
-		this.notes.add( new LogEntry( "Customer record created." ) );
+		this.publisher=publisher;
+		this.type = type;
+		this.notes.add( new LogEntry( "Product record created." ) );
 	}
 
 
@@ -62,17 +62,17 @@ public class Customer implements EntityIntf  {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getType() {
+		return type;
 	}
 
-	public String getFirstName() {
-		return firstname;
+	public String getPublisher() {
+		return publisher;
 	}
 
-	public List<String> getContacts() {
-		return contacts;
-	}
+//	public List<String> getContacts() {
+//		return contacts;
+//	}
 
 	public List<String> getNotesAsStringList() {
 		List<String>res = new ArrayList<String>();
@@ -86,26 +86,26 @@ public class Customer implements EntityIntf  {
 		return notes;
 	}
 
-	public CustomerStatus getStatus() {
+	public ProductStatus getStatus() {
 		return status;
 	}
 
-	public Customer setName( String name ) {
-		this.name = name;
+	public Product setType( String type ) {
+		this.type = type;
 		return this;
 	}
 
-	public Customer setFirstName( String firstnamename ) {
-		this.firstname = firstname;
+	public Product setPublisher( String publisher ) {
+		this.publisher = publisher;
 		return this;
 	}
 
-	public Customer addContact( String contact ) {
+/*	public Product addContact( String contact ) {
 		contacts.add( contact );
 		return this;
-	}
+	}*/
 
-	public Customer setStatus( CustomerStatus status ) {
+	public Product setStatus( ProductStatus status ) {
 		this.status = status;
 		return this;
 	}
